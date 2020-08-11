@@ -36,6 +36,28 @@ class MapViewController: UIViewController {
         
         setUpCV()
         setUpViewAndConstraints()
+        
+        getPlaces()
+    }
+    
+   private func getPlaces() {
+        
+        let coordinates = Coordinates(latitude: -23.609900, longitude: -46.601150)
+        
+        NetWorkService.shared.getPlacesNearMe(for: coordinates) { result in
+            
+            switch result {
+                
+            case .success(let places):
+                print(places)
+                print("#Total de Registros -> #\(places.total)")
+                
+            case .failure(let error):
+                print(error.rawValue)
+            }
+            
+        }
+        
     }
     
     private func setUpCV() {

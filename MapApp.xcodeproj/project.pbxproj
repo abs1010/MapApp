@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BA4BF3E7EC74C5D964D9DDF /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB359D7B4392BF28D0F533 /* Pods_MapApp.framework */; };
 		BC160D4124E1C95C0089A8BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D4024E1C95C0089A8BA /* AppDelegate.swift */; };
 		BC160D4324E1C95C0089A8BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D4224E1C95C0089A8BA /* SceneDelegate.swift */; };
 		BC160D4524E1C95C0089A8BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D4424E1C95C0089A8BA /* ViewController.swift */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BDB359D7B4392BF28D0F533 /* Pods_MapApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		62967690A13A771201AED631 /* Pods-MapApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.release.xcconfig"; path = "Target Support Files/Pods-MapApp/Pods-MapApp.release.xcconfig"; sourceTree = "<group>"; };
 		BC160D3D24E1C95C0089A8BA /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC160D4024E1C95C0089A8BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC160D4224E1C95C0089A8BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		BC160D4E24E1C9600089A8BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC160D5724E21B840089A8BA /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
 		BC160D5A24E2F8BD0089A8BA /* Places.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
+		D8F40E08FF72AC9D7672F7FD /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BA4BF3E7EC74C5D964D9DDF /* Pods_MapApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F0FA7555CE911E6FD6FDE8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BDB359D7B4392BF28D0F533 /* Pods_MapApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAA725546994AB3B607B70BC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D8F40E08FF72AC9D7672F7FD /* Pods-MapApp.debug.xcconfig */,
+				62967690A13A771201AED631 /* Pods-MapApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		BC160D3424E1C95C0089A8BA = {
 			isa = PBXGroup;
 			children = (
 				BC160D3F24E1C95C0089A8BA /* MapApp */,
 				BC160D3E24E1C95C0089A8BA /* Products */,
+				AAA725546994AB3B607B70BC /* Pods */,
+				8F0FA7555CE911E6FD6FDE8A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,7 +85,6 @@
 				BC160D5424E213D40089A8BA /* AppDelegate */,
 				BC160D5524E213DD0089A8BA /* Modules */,
 				BC160D5624E21B740089A8BA /* Service */,
-				BC160D4424E1C95C0089A8BA /* ViewController.swift */,
 				BC160D4924E1C9600089A8BA /* Assets.xcassets */,
 				BC160D4B24E1C9600089A8BA /* LaunchScreen.storyboard */,
 				BC160D4E24E1C9600089A8BA /* Info.plist */,
@@ -81,6 +104,7 @@
 		BC160D5524E213DD0089A8BA /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				BC160D5C24E339E70089A8BA /* View */,
 				BC160D5924E2F8A10089A8BA /* Model */,
 			);
 			path = Modules;
@@ -102,6 +126,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BC160D5C24E339E70089A8BA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC160D4424E1C95C0089A8BA /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,9 +141,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC160D5124E1C9600089A8BA /* Build configuration list for PBXNativeTarget "MapApp" */;
 			buildPhases = (
+				8F19BC52FC092E891C00D48B /* [CP] Check Pods Manifest.lock */,
 				BC160D3924E1C95C0089A8BA /* Sources */,
 				BC160D3A24E1C95C0089A8BA /* Frameworks */,
 				BC160D3B24E1C95C0089A8BA /* Resources */,
+				92BCBC2BC463007F90B3A49B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -166,6 +200,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8F19BC52FC092E891C00D48B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MapApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		92BCBC2BC463007F90B3A49B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapApp/Pods-MapApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapApp/Pods-MapApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MapApp/Pods-MapApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BC160D3924E1C95C0089A8BA /* Sources */ = {
@@ -310,6 +386,7 @@
 		};
 		BC160D5224E1C9600089A8BA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8F40E08FF72AC9D7672F7FD /* Pods-MapApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -328,6 +405,7 @@
 		};
 		BC160D5324E1C9600089A8BA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62967690A13A771201AED631 /* Pods-MapApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
