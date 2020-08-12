@@ -30,7 +30,9 @@ class MapViewController: UIViewController {
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         
         return collectionView
     }()
@@ -72,7 +74,9 @@ class MapViewController: UIViewController {
     private func setUpCV() {
         
         mainCollectionView.delegate = self
-        mainCollectionView.delegate = self
+        mainCollectionView.dataSource = self
+        
+        mainCollectionView.register(DetailCollectionViewCell.self, forCellWithReuseIdentifier: DetailCollectionViewCell.cellID)
     }
     
     private func setUpViewAndConstraints() {
@@ -85,10 +89,10 @@ class MapViewController: UIViewController {
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainCollectionView.heightAnchor.constraint(equalToConstant: 180.0),
-            mainCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            mainCollectionView.heightAnchor.constraint(equalToConstant: 120.0),
+            mainCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25.0),
+            mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5.0),
+            mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5.0)
         ])
         
     }
@@ -110,6 +114,8 @@ class MapViewController: UIViewController {
             pin.title = place.name
             pin.subtitle = place.alias
             annotations.append(pin)
+            
+            mainCollectionView.reloadData()
             
         })
         
@@ -203,17 +209,24 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 2
+        return localizedPlaces?.businesses?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = UICollectionViewCell(frame: .zero)
-        cell.backgroundColor = .green
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailCollectionViewCell.cellID, for: indexPath) as! DetailCollectionViewCell
+        
+        let place = localizedPlaces?.businesses?[indexPath.row]
+        
+        cell.setupView()
+        cell.nameLabel.text = place?.name
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: view.frame.width - 5, height: view.frame.height - 10)
+    }
     
 }
 

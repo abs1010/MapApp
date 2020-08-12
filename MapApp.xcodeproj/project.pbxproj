@@ -15,6 +15,7 @@
 		BC160D4D24E1C9600089A8BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC160D4B24E1C9600089A8BA /* LaunchScreen.storyboard */; };
 		BC160D5824E21B840089A8BA /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D5724E21B840089A8BA /* NetWorkService.swift */; };
 		BC160D5B24E2F8BD0089A8BA /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D5A24E2F8BD0089A8BA /* Places.swift */; };
+		BC160D5F24E376350089A8BA /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D5E24E376350089A8BA /* DetailCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		BC160D4E24E1C9600089A8BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC160D5724E21B840089A8BA /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
 		BC160D5A24E2F8BD0089A8BA /* Places.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
+		BC160D5E24E376350089A8BA /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8F40E08FF72AC9D7672F7FD /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,8 +132,17 @@
 			isa = PBXGroup;
 			children = (
 				BC160D4424E1C95C0089A8BA /* ViewController.swift */,
+				BC160D5D24E376040089A8BA /* Cell */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BC160D5D24E376040089A8BA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BC160D5E24E376350089A8BA /* DetailCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +264,7 @@
 				BC160D5824E21B840089A8BA /* NetWorkService.swift in Sources */,
 				BC160D4124E1C95C0089A8BA /* AppDelegate.swift in Sources */,
 				BC160D4324E1C95C0089A8BA /* SceneDelegate.swift in Sources */,
+				BC160D5F24E376350089A8BA /* DetailCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
