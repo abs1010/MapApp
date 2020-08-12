@@ -10,11 +10,6 @@ import Foundation
 import UIKit
 import Alamofire
 
-struct Coordinates {
-    let latitude: Double
-    let longitude: Double
-}
-
 enum ServiceError: String, Error {
     case cannotGetResponse = "No response from server or endpoint."
     case cannotDecodeObject = "Cannot decode returned object. Serialization error."
@@ -35,8 +30,8 @@ class NetWorkService {
         let header: HTTPHeaders = ["Authorization": apiKey]
         
         let parameters: [String:Any] =
-            ["latitude": coordinates.latitude,
-             "longitude": coordinates.longitude,
+            ["latitude": coordinates.latitude ?? 0.0,
+             "longitude": coordinates.longitude ?? 0.0,
              "limit": 50,
              "offset": 0,
              "locale": "pt_BR",
