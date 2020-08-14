@@ -35,7 +35,7 @@ class NetWorkService {
              "limit": 50,
              "offset": 0,
              "locale": "pt_BR",
-             "categories": "restaurant"]
+             "categories": "mall"]
         
         AF.request(url, method: .get, parameters: parameters, headers: header).responseJSON { response in
             

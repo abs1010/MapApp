@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import SDWebImage
 
 class MapViewController: UIViewController {
     
@@ -25,7 +26,7 @@ class MapViewController: UIViewController {
         return mapView
     }()
     
-    let mainCollectionView: UICollectionView = {
+    lazy var mainCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -91,8 +92,8 @@ class MapViewController: UIViewController {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainCollectionView.heightAnchor.constraint(equalToConstant: 120.0),
             mainCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25.0),
-            mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5.0),
-            mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5.0)
+            mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.0),
+            mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0.0)
         ])
         
     }
@@ -112,7 +113,7 @@ class MapViewController: UIViewController {
             let pin = MKPointAnnotation()
             pin.coordinate = center
             pin.title = place.name
-            pin.subtitle = place.alias
+            pin.subtitle = place.phone
             annotations.append(pin)
             
             mainCollectionView.reloadData()
@@ -172,7 +173,7 @@ class MapViewController: UIViewController {
         let langitude = location.coordinate.longitude
         
         let centerCoordinates = CLLocationCoordinate2D(latitude: latitude, longitude: langitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
         
         let region = MKCoordinateRegion(center: centerCoordinates, span: span)
         
@@ -220,12 +221,44 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
         
         cell.setupView()
         cell.nameLabel.text = place?.name
+        cell.detailabel.text = place?.phone
+        cell.image.sd_setImage(with: URL(string: place?.imageURL ?? ""), completed: nil)
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        return .init(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return .init(0.0)
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 5, height: view.frame.height - 10)
+        
+        return .init(width: view.frame.width, height: 100.0)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let place = localizedPlaces?.businesses?[indexPath.row]
+        
+        guard let latitude = place?.coordinates?.latitude else { return }
+        guard let langitude = place?.coordinates?.longitude else { return }
+        
+        let centerCoordinates = CLLocationCoordinate2D(latitude: latitude, longitude: langitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.100, longitudeDelta: 0.100)
+        
+        let region = MKCoordinateRegion(center: centerCoordinates, span: span)
+        
+        mapView.setRegion(region, animated: true)
+        
     }
     
 }
@@ -246,7 +279,9 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
         checkLocationAuthorization()
+        
     }
     
 }

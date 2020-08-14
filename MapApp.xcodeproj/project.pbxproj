@@ -10,7 +10,7 @@
 		1BA4BF3E7EC74C5D964D9DDF /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDB359D7B4392BF28D0F533 /* Pods_MapApp.framework */; };
 		BC160D4124E1C95C0089A8BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D4024E1C95C0089A8BA /* AppDelegate.swift */; };
 		BC160D4324E1C95C0089A8BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D4224E1C95C0089A8BA /* SceneDelegate.swift */; };
-		BC160D4524E1C95C0089A8BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D4424E1C95C0089A8BA /* ViewController.swift */; };
+		BC160D4524E1C95C0089A8BA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D4424E1C95C0089A8BA /* MapViewController.swift */; };
 		BC160D4A24E1C9600089A8BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC160D4924E1C9600089A8BA /* Assets.xcassets */; };
 		BC160D4D24E1C9600089A8BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC160D4B24E1C9600089A8BA /* LaunchScreen.storyboard */; };
 		BC160D5824E21B840089A8BA /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC160D5724E21B840089A8BA /* NetWorkService.swift */; };
@@ -24,7 +24,7 @@
 		BC160D3D24E1C95C0089A8BA /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC160D4024E1C95C0089A8BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC160D4224E1C95C0089A8BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BC160D4424E1C95C0089A8BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BC160D4424E1C95C0089A8BA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BC160D4924E1C9600089A8BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC160D4C24E1C9600089A8BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC160D4E24E1C9600089A8BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 		BC160D5C24E339E70089A8BA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC160D4424E1C95C0089A8BA /* ViewController.swift */,
+				BC160D4424E1C95C0089A8BA /* MapViewController.swift */,
 				BC160D5D24E376040089A8BA /* Cell */,
 			);
 			path = View;
@@ -260,7 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC160D5B24E2F8BD0089A8BA /* Places.swift in Sources */,
-				BC160D4524E1C95C0089A8BA /* ViewController.swift in Sources */,
+				BC160D4524E1C95C0089A8BA /* MapViewController.swift in Sources */,
 				BC160D5824E21B840089A8BA /* NetWorkService.swift in Sources */,
 				BC160D4124E1C95C0089A8BA /* AppDelegate.swift in Sources */,
 				BC160D4324E1C95C0089A8BA /* SceneDelegate.swift in Sources */,
