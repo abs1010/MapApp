@@ -60,7 +60,7 @@ class MapViewController: UIViewController {
         
         setUpCV()
         setUpViewAndConstraints()
-        getPlaces()
+        //getPlaces()
         
     }
     
@@ -70,9 +70,9 @@ class MapViewController: UIViewController {
         
     }
     
-    private func getPlaces() {
+    private func getPlaces(coordinates: Coordinates) {
         
-        let coordinates = Coordinates(latitude: -23.609900, longitude: -46.601150)
+        //let coordinates = Coordinates(latitude: -23.609900, longitude: -46.601150)
         
         NetWorkService.shared.getPlacesNearMe(for: coordinates) { result in
             
@@ -137,23 +137,16 @@ class MapViewController: UIViewController {
             
             let center = CLLocationCoordinate2D(latitude: latitude, longitude: langitude)
             
-            ///Create Pin
+            //Create Pin
             let pin = MKPointAnnotation()
             pin.coordinate = center
             pin.title = place.name
             pin.subtitle = place.phone
             annotations.append(pin)
-  
-//            let pin = ALPointAnnotation()
-//            pin.coordinate = center
-//            pin.title = place.name
-//            pin.subtitle = place.phone
-//            annotations.append(pin)
-            
-            mainCollectionView.reloadData()
             
         })
         
+        mainCollectionView.reloadData()
         mapView.addAnnotations(annotations)
         
     }
@@ -278,8 +271,6 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
         
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         let place = localizedPlaces?.businesses?[indexPath.row]
@@ -310,6 +301,10 @@ extension MapViewController: CLLocationManagerDelegate {
             coreLocationManager.stopUpdatingLocation()
             
             showCurrentLocation(location)
+            
+            let coordinates = Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            
+            getPlaces(coordinates: coordinates)
             
         }
         
@@ -360,12 +355,22 @@ extension MapViewController : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-        //view.annotation
-        print(view.annotation?.hash)
+        var seq = 0
+        var index = 0
         
-        UIView.animate(withDuration: 0.5) {
-            view.animate(.fadeIn, withDuration: 0.5)
-            self.mainCollectionView.scrollToItem(at: IndexPath(item: 9, section: 0), at: .centeredHorizontally, animated: true)
+        localizedPlaces?.businesses?.forEach({ place in
+            
+            if place.name == view.annotation?.title {
+                index = seq
+            }
+            
+            seq += 1
+                
+        })
+        
+        UIView.animate(withDuration: 10.5) {
+        
+            self.mainCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
             
         }
         

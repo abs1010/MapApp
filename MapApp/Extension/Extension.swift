@@ -7,28 +7,6 @@
 //
 
 import UIKit
-import MapKit
-
-class ALPointAnnotation: MKPointAnnotation {
-    
-    let name: String
-    let detail: String
-    let index: Int
-    let center: CLLocationCoordinate2D
-    
-    init(name: String, detail: String, index: Int, center: CLLocationCoordinate2D) {
-        self.name = name
-        self.detail = detail
-        self.index = index
-        self.center = center
-        super.init()
-    }
-    
-    convenience override init() {
-        self.init(name: "", detail: "", index: 0, center: CLLocationCoordinate2D(latitude: 0, longitude: 0))
-    }
-    
-}
 
 public enum AnimationFade {
     case fadeIn, fadeOut
