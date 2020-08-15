@@ -23,7 +23,7 @@ class DetailCollectionViewCell: UICollectionViewCell {
     
     lazy var image: UIImageView = {
         let imageView = UIImageView(frame: .zero)
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .white
         
@@ -63,10 +63,10 @@ class DetailCollectionViewCell: UICollectionViewCell {
         mainView.layer.cornerRadius = 8.0
         mainView.backgroundColor = UIColor(white: 1, alpha: 0.8)
 
-
+        image.clipsToBounds = true
         image.layer.cornerRadius = 40.0
         
-        mainView.layer.borderWidth = 2.0
+        mainView.layer.borderWidth = 1.0
         mainView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         self.addSubview(mainView)
@@ -82,7 +82,7 @@ class DetailCollectionViewCell: UICollectionViewCell {
             image.centerYAnchor.constraint(equalTo: mainView.centerYAnchor),
             image.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 10.0),
             image.heightAnchor.constraint(equalToConstant: 80.0),
-            image.widthAnchor.constraint(equalToConstant: 80.0),
+            image.widthAnchor.constraint(equalToConstant: 80.0),            
             nameLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
             nameLabel.centerYAnchor.constraint(equalTo: mainView.centerYAnchor),
             detailabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),

@@ -38,15 +38,35 @@ class MapViewController: UIViewController {
         return collectionView
     }()
     
+    lazy var locationImgPin: UIButton = {
+        let buttom = UIButton(frame: .zero)
+        buttom.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        buttom.translatesAutoresizingMaskIntoConstraints = false
+        buttom.addTarget(self, action: #selector(pointToActualLocation), for: .touchUpInside)
+        
+        return buttom
+    }()
+    
+    lazy var bottomView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = #colorLiteral(red: 0.9768511653, green: 0.9615669847, blue: 0.9277536869, alpha: 1)
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpCV()
         setUpViewAndConstraints()
-        //setUpCoreLocation()
-        checkLocationServices()
-        
         getPlaces()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkLocationServices()
         
     }
     
@@ -62,7 +82,7 @@ class MapViewController: UIViewController {
                 
                 self.localizedPlaces = places
                 self.setPinsForAddresses()
-    
+                
             case .failure(let error):
                 print(error.rawValue)
                 self.showAlert()
@@ -76,6 +96,7 @@ class MapViewController: UIViewController {
         
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
+        mapView.delegate = self
         
         mainCollectionView.register(DetailCollectionViewCell.self, forCellWithReuseIdentifier: DetailCollectionViewCell.cellID)
     }
@@ -83,6 +104,7 @@ class MapViewController: UIViewController {
     private func setUpViewAndConstraints() {
         
         view.addSubview(mapView)
+        mapView.addSubview(locationImgPin)
         view.addSubview(mainCollectionView)
         
         NSLayoutConstraint.activate([
@@ -90,6 +112,12 @@ class MapViewController: UIViewController {
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            locationImgPin.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 60.0),
+            locationImgPin.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 20.0),
+            locationImgPin.heightAnchor.constraint(equalToConstant: 20.0),
+            locationImgPin.widthAnchor.constraint(equalToConstant: 20.0),
+            
             mainCollectionView.heightAnchor.constraint(equalToConstant: 120.0),
             mainCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25.0),
             mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.0),
@@ -115,11 +143,16 @@ class MapViewController: UIViewController {
             pin.title = place.name
             pin.subtitle = place.phone
             annotations.append(pin)
+  
+//            let pin = ALPointAnnotation()
+//            pin.coordinate = center
+//            pin.title = place.name
+//            pin.subtitle = place.phone
+//            annotations.append(pin)
             
             mainCollectionView.reloadData()
             
         })
-        
         
         mapView.addAnnotations(annotations)
         
@@ -140,9 +173,16 @@ class MapViewController: UIViewController {
     
     private func setUpCoreLocation() {
         
-        coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+        coreLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         coreLocationManager.delegate = self
         coreLocationManager.requestWhenInUseAuthorization()
+        coreLocationManager.startUpdatingLocation()
+        
+    }
+    
+    @objc private func pointToActualLocation() {
+        
+        mapView.showsUserLocation = true
         coreLocationManager.startUpdatingLocation()
         
     }
@@ -173,19 +213,12 @@ class MapViewController: UIViewController {
         let langitude = location.coordinate.longitude
         
         let centerCoordinates = CLLocationCoordinate2D(latitude: latitude, longitude: langitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
+        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         
         let region = MKCoordinateRegion(center: centerCoordinates, span: span)
         
         mapView.setRegion(region, animated: true)
-        
-//        ///Pin
-//        let pin = MKPointAnnotation()
-//        pin.coordinate = centerCoordinates
-//        pin.title = "You ara here!"
-//        pin.subtitle = "Look around."
-//
-//        //mapView.addAnnotation(pin)
+        locationImgPin.setImage(UIImage(systemName: "location.fill"), for: .normal)
         
     }
     
@@ -228,9 +261,9 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
+        
         return .init(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -245,6 +278,8 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
         
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         let place = localizedPlaces?.businesses?[indexPath.row]
@@ -257,7 +292,9 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
         
         let region = MKCoordinateRegion(center: centerCoordinates, span: span)
         
-        mapView.setRegion(region, animated: true)
+        if indexPath.item != 0 {
+            mapView.setRegion(region, animated: true)
+        }
         
     }
     
@@ -281,6 +318,56 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         checkLocationAuthorization()
+        
+    }
+    
+}
+
+//MARK: - Mapkit delegate Methods
+
+extension MapViewController : MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+        ///Clear pin when location changes
+            locationImgPin.setImage(UIImage(systemName: "location"), for: .normal)
+            
+    }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        
+        print("didUpdate userLocation")
+        coreLocationManager.stopUpdatingLocation()
+        print("Parou de atualizar user location")
+        
+    }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        
+        print("Terminou de carregar o mapa")
+        
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        
+        print("ChangeVisibleRegion mapa")
+        
+    }
+    
+    //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    //
+    //    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        //view.annotation
+        print(view.annotation?.hash)
+        
+        UIView.animate(withDuration: 0.5) {
+            view.animate(.fadeIn, withDuration: 0.5)
+            self.mainCollectionView.scrollToItem(at: IndexPath(item: 9, section: 0), at: .centeredHorizontally, animated: true)
+            
+        }
         
     }
     
