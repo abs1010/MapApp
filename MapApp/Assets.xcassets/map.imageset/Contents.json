@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "selfie.png",
+      "filename" : "cartoon-city-map-icon-with-gps-pin-vector-16116222.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "selfie@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "selfie@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

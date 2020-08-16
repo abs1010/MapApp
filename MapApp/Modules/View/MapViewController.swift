@@ -243,12 +243,11 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailCollectionViewCell.cellID, for: indexPath) as! DetailCollectionViewCell
         
-        let place = localizedPlaces?.businesses?[indexPath.row]
+        if let business = localizedPlaces?.businesses?[indexPath.row] {
         
-        cell.setupView()
-        cell.nameLabel.text = place?.name
-        cell.detailabel.text = place?.phone
-        cell.image.sd_setImage(with: URL(string: place?.imageURL ?? ""), completed: nil)
+            cell.setupCell(business)
+            
+        }
         
         return cell
     }

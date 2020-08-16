@@ -35,6 +35,9 @@ class DetailCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Nome"
         label.textColor = .label
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         
         return label
     }()
@@ -43,7 +46,17 @@ class DetailCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Detalhe"
-        label.textColor = .white
+        label.textColor = .label
+        
+        return label
+    }()
+    
+    let ratinglabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "⭐️"
+        label.sizeToFit()
+        label.textColor = .label
         
         return label
     }()
@@ -58,7 +71,7 @@ class DetailCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
+    private func setupView() {
         
         mainView.layer.cornerRadius = 8.0
         mainView.backgroundColor = UIColor(white: 1, alpha: 0.8)
@@ -73,6 +86,7 @@ class DetailCollectionViewCell: UICollectionViewCell {
         mainView.addSubview(image)
         mainView.addSubview(nameLabel)
         mainView.addSubview(detailabel)
+        mainView.addSubview(ratinglabel)
         
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: topAnchor, constant: 10.0),
@@ -83,11 +97,31 @@ class DetailCollectionViewCell: UICollectionViewCell {
             image.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 10.0),
             image.heightAnchor.constraint(equalToConstant: 80.0),
             image.widthAnchor.constraint(equalToConstant: 80.0),            
-            nameLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: mainView.centerYAnchor),
-            detailabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
-            detailabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10.0)
+            nameLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 20.0),
+            nameLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20.0),
+            nameLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10.0),
+            detailabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20.0),
+            detailabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10.0),
+            ratinglabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -20.0),
+            ratinglabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -20.0)
         ])
+        
+    }
+    
+    func setupCell(_ business: Business) {
+        
+        nameLabel.text = business.name
+        detailabel.text = business.displayPhone
+        
+        if let rate = business.rating {
+            ratinglabel.text = "\(rate) ⭐️"
+        }
+        
+        if !(business.imageURL?.isEmpty ?? false) {
+            image.sd_setImage(with: URL(string: business.imageURL ?? ""), completed: nil)
+        } else {
+            image.image = UIImage(named: "map")
+        }
         
     }
     
