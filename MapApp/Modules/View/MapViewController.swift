@@ -85,7 +85,7 @@ class MapViewController: UIViewController {
                 
             case .failure(let error):
                 print(error.rawValue)
-                self.showAlert()
+                //self.showAlert()
             }
             
         }
@@ -345,7 +345,7 @@ extension MapViewController : MKMapViewDelegate {
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         
-        print("ChangeVisibleRegion mapa")
+        //print("ChangeVisibleRegion mapa")
         
     }
     

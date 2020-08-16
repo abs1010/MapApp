@@ -52,10 +52,10 @@ struct Category: Codable {
 struct Location: Codable {
     let address1: String?
     let address2, address3: String?
-    let city: City?
+    let city: String?
     let zipCode: String?
-    let country: Country?
-    let state: State?
+    let country: String?
+    let state: String?
     let displayAddress: [String]?
 
     enum CodingKeys: String, CodingKey {
@@ -64,18 +64,6 @@ struct Location: Codable {
         case country, state
         case displayAddress = "display_address"
     }
-}
-
-enum City: String, Codable {
-    case sãoPaulo = "São Paulo"
-}
-
-enum Country: String, Codable {
-    case br = "BR"
-}
-
-enum State: String, Codable {
-    case sp = "SP"
 }
 
 // MARK: - Region
